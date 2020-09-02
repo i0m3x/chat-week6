@@ -11,12 +11,29 @@ function Chat (props) {
     </ul>
   )
 }
+function AddRoom (props) {
+  console.log(props)
+  return (
+    <div id="add-room">
+
+       <select id="room-select">
+         <option value="" >Select a value </option>
+         {props.rooms.map(room => <option value={room} >{room} </option>)}
+       </select>
+
+    </div>
+  )
+}
+
+
 class App extends React.Component { //being
   constructor (props) {
     super(props)
     this.state = {
       messages: [],
       user: "Pete",
+      rooms: ["roomOne", "roomTwo"],
+      addRoomText: "",
     }
     //console.log(this.state)
   }
@@ -30,9 +47,14 @@ class App extends React.Component { //being
         }, () => console.log(this.state))
       })
   }
+  handleAddRoom = (event) => { //react always looks for 'handle'
+    this.setState({room: room.concat(event.target.value)})
+    console.log("handleAddRoom is working")
+  }
   render () {
     return (
       <div>
+        <AddRoom rooms={this.state.rooms} addRoomText={this.state.addRoomText}/>
         <Chat messages={this.state.messages} />
       </div>
     )
